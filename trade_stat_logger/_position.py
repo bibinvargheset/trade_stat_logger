@@ -56,12 +56,9 @@ class _Position:
         return self.shares
 
     def to_tuple(self):
-        self.get_position_value()
-        return self.shares, self.current_price , self.position_size, self.position_value
         self.get_current_profit()
         return self.shares, self.current_price , self.position_size, self.current_profit
 
     def to_dict(self):
-        self.get_position_value()
-        return {'shares': self.shares,'current_price':self.current_price, 'position_size': self.position_size, 'position_value':self.position_value}        self.get_current_profit()
+        self.get_current_profit()
         return {'shares': self.shares,'current_price':self.current_price, 'position_size': self.position_size, 'current_profit':self.current_profit}
