@@ -46,6 +46,7 @@ class SimpleLogger:
 
         data = [security, shares, share_price, profit, self.nan_division(profit, (abs(shares) * share_price))]
         #data = [security, shares, share_price, profit]
+        data_dict = {'security':security, 'shares':shares, 'share_price':share_price, 'profit':profit,'Return on Trade size': self.nan_division(profit, (abs(shares) * share_price)),'Time': datetime.now(),'position_size':self.positions[security].position_size, 'total_profit':self.total_profit}
         if self.datetime_support:
             if dt is None:
                 data.insert(0, datetime.now(tz=timezone('EST')))
@@ -54,6 +55,17 @@ class SimpleLogger:
         append_index = len(self.trade_history)
         self.trade_history.loc[append_index] = data
         print(self.trade_history)
+        #self.trade_log.append(data_dict,ignore_index=True)
+
+        log_fn = 'F:/python/telegram/chat_log/'+str(self.name)+'.csv'
+        file_exists = os.path.isfile(log_fn)
+
+        with open(log_fn, 'a', newline='') as csvfile:
+            fieldnames = ['security', 'shares', 'share_price', 'profit', 'Return on Trade size','position_size','total_profit','Time']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow(data_dict)
 
     def log_current_price(self, security, share_price, dt=None):
         if security in self.positions.keys():
