@@ -4,6 +4,7 @@ class _Position:
         if share_price <= 0:
             raise ValueError("Please enter a positive number for share_price")
         self.shares = shares
+        self.current_price = share_price
         self.position_size = float(shares * share_price)
 
     def buy(self, shares, share_price):
@@ -47,9 +48,9 @@ class _Position:
     def setcp(self,current_price):
         self.current_price = current_price
 
-    def get_position_value(self):
-        self.position_value = (self.shares*self.current_price)-self.position_size
-        return self.position_value
+    def get_current_profit(self):
+        self.current_profit = (self.shares*self.current_price)-self.position_size
+        return self.current_profit
 
     def get_shares(self):
         return self.shares
@@ -57,7 +58,10 @@ class _Position:
     def to_tuple(self):
         self.get_position_value()
         return self.shares, self.current_price , self.position_size, self.position_value
+        self.get_current_profit()
+        return self.shares, self.current_price , self.position_size, self.current_profit
 
     def to_dict(self):
         self.get_position_value()
-        return {'shares': self.shares,'current_price':self.current_price, 'position_size': self.position_size, 'position_value':self.position_value}
+        return {'shares': self.shares,'current_price':self.current_price, 'position_size': self.position_size, 'position_value':self.position_value}        self.get_current_profit()
+        return {'shares': self.shares,'current_price':self.current_price, 'position_size': self.position_size, 'current_profit':self.current_profit}
