@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+import sys
+# the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
+sys.path.append('F:/python/stocks/trade_stat_logger/')
+
 from trade_stat_logger._position import _Position
 from datetime import datetime
 from pytz import timezone
@@ -14,8 +18,8 @@ class SimpleLogger:
     def __init__(self, datetime_support=False):
         self.datetime_support = datetime_support
         self.positions = {}
-        # columns = ['security', 'shares', 'share price', 'profit', 'return on trade size']
-        columns = ['security', 'shares', 'share price', 'profit']
+        columns = ['security', 'shares', 'share price', 'profit', 'return on trade size']
+        #columns = ['security', 'shares', 'share price', 'profit']
         if datetime_support:
             columns.insert(0, 'datetime')
         self.trade_history = pd.DataFrame(columns=columns)
@@ -31,8 +35,8 @@ class SimpleLogger:
             else:
                 profit = self.positions[security].buy(shares, share_price)
 
-        #data = [security, shares, share_price, profit, self.nan_division(profit, (abs(shares) * share_price))]
-        data = [security, shares, share_price, profit]
+        data = [security, shares, share_price, profit, self.nan_division(profit, (abs(shares) * share_price))]
+        #data = [security, shares, share_price, profit]
         if self.datetime_support:
             if dt is None:
                 data.insert(0, datetime.now(tz=timezone('EST')))
@@ -40,10 +44,16 @@ class SimpleLogger:
                 data.insert(0, dt)
         append_index = len(self.trade_history)
         self.trade_history.loc[append_index] = data
+        print(self.trade_history)
+
+    def log_current_price(self, security, share_price, dt=None):
+        if security in self.positions.keys():
+            self.positions[security].setcp(share_price)
 
     def log_cp(self, security, share_price, dt=None):
         if security in self.positions.keys():
             self.log(security, self.positions[security].get_shares(), share_price, dt=dt)
+
 
     def get_position(self, security):
         if security in self.positions.keys():
