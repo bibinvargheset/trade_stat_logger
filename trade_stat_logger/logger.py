@@ -12,7 +12,8 @@ from pytz import timezone
 from yahoo_fin import stock_info as si
 from warnings import warn
 from statsmodels.stats.proportion import proportions_ztest
-
+import csv
+import os.path
 
 class SimpleLogger:
     def __init__(self,name=None, datetime_support=False):
