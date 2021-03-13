@@ -58,15 +58,6 @@ class SimpleLogger:
         print(self.trade_history)
         #self.trade_log.append(data_dict,ignore_index=True)
 
-        log_fn = 'F:/python/telegram/chat_log/'+str(self.name)+'.csv'
-        file_exists = os.path.isfile(log_fn)
-
-        with open(log_fn, 'a', newline='') as csvfile:
-            fieldnames = ['security', 'shares', 'share_price', 'profit', 'Return on Trade size','position_size','total_profit','Time']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            if not file_exists:
-                writer.writeheader()
-            writer.writerow(data_dict)
 
 
         log_fn = 'F:/python/telegram/chat_log/'+str(self.name)+'.csv'
