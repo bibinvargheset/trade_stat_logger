@@ -49,7 +49,6 @@ class SimpleLogger:
         data_dict = {'security':security, 'shares':shares, 'share_price':share_price, 'profit':profit,'Return on Trade size': self.nan_division(profit, (abs(shares) * share_price)),'Time': datetime.now(),'position_size':self.positions[security].position_size, 'total_profit':self.total_profit}
         if self.datetime_support:
             if dt is None:
-                data.insert(0, datetime.now(tz=timezone('EST')))
                 data.insert(0, datetime.now())
             else:
                 data.insert(0, dt)
