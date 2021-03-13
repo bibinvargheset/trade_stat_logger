@@ -5,6 +5,7 @@ from matplotlib.ticker import MaxNLocator
 import sys
 # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
 sys.path.append('F:/python/stocks/trade_stat_logger/')
+from  Custom_func import my_csv_dict
 
 from trade_stat_logger._position import _Position
 from datetime import datetime
