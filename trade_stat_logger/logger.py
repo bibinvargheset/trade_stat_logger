@@ -50,6 +50,7 @@ class SimpleLogger:
         if self.datetime_support:
             if dt is None:
                 data.insert(0, datetime.now(tz=timezone('EST')))
+                data.insert(0, datetime.now())
             else:
                 data.insert(0, dt)
         append_index = len(self.trade_history)
