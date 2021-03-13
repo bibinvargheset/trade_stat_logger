@@ -24,6 +24,7 @@ class SimpleLogger:
         if datetime_support:
             columns.insert(0, 'datetime')
         self.trade_history = pd.DataFrame(columns=columns)
+        self.total_profit=0
 
     # call when you buy and sell securities
     def log(self, security, shares, share_price, dt=None):
@@ -35,6 +36,11 @@ class SimpleLogger:
                 profit = self.positions[security].sell(abs(shares), share_price)
             else:
                 profit = self.positions[security].buy(shares, share_price)
+        if  np.isnan(self.total_profit):
+            self.total_profit = 0
+
+        if  not np.isnan(profit) :
+            self.total_profit += profit
 
         data = [security, shares, share_price, profit, self.nan_division(profit, (abs(shares) * share_price))]
         #data = [security, shares, share_price, profit]
