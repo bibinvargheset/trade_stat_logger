@@ -67,6 +67,11 @@ class SimpleLogger:
                 writer.writeheader()
             writer.writerow(data_dict)
 
+
+        log_fn = 'F:/python/telegram/chat_log/'+str(self.name)+'.csv'
+        my_csv_dict(data_dict,log_fn,['security', 'shares', 'share_price', 'profit', 'Return on Trade size','position_size','total_profit','Time'])
+
+
     def log_current_price(self, security, share_price, dt=None):
         if security in self.positions.keys():
             self.positions[security].setcp(share_price)
