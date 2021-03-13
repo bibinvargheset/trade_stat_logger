@@ -15,8 +15,9 @@ from statsmodels.stats.proportion import proportions_ztest
 
 
 class SimpleLogger:
-    def __init__(self, datetime_support=False):
+    def __init__(self,name=None, datetime_support=False):
         self.datetime_support = datetime_support
+        self.name = name
         self.positions = {}
         columns = ['security', 'shares', 'share price', 'profit', 'return on trade size']
         #columns = ['security', 'shares', 'share price', 'profit']
